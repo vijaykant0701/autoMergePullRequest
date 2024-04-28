@@ -1,0 +1,24 @@
+name: manual run
+
+on:
+  push:
+    branches: [ "!main" ]  # Trigger on pushes to non-main branches
+
+jobs:
+  create-pr:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Create Pull Request
+        uses: create-pull-request@v4
+        with:
+          title: "Automatic PR from"  # Customize title
+          body: "This pull request was created automatically from commit"  # Customize body
+          branch: testPRauto  # Branch to create PR from
+          base: main  # Target branch for PR
+
+          # Disable automatic merging (recommended)
+          automerge: false
+          # delete-branch: true  # Optional: Delete source branch after PR creation
