@@ -1,0 +1,36 @@
+name: Test and Create PR
+
+on:
+  pull_request:  # Trigger workflow on pull request events
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Specify runner environment
+
+    steps:
+      - uses: actions/checkout@v3  # Checkout pull request code
+      - name: Install dependencies  # Install dependencies (replace with your command)
+        run: mvn install
+
+      - name: Run tests  # Run your tests (replace with your command)
+        
+      - name: Check test results
+        run: |
+          if [ $? -eq 0 ]; then
+            echo "Tests passed!"
+          else
+            echo "Tests failed!"
+            exit 1  # Exit with failure code to prevent PR creation
+          fi
+
+      - name: Create Pull Request (if tests pass)
+        uses: actions/checkout@v3  # Checkout code again (optional)
+        if: success()  # Only run if previous steps succeeded
+        run: |
+          gh pr create \
+            -t "Automatic Pull Request (Tests Passed)" \
+            -B main \
+            -h ${{ github.sha }}  # Replace with your PR body and title 
+
+          # Add labels or assignees as needed
+
