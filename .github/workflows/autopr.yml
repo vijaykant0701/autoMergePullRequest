@@ -1,0 +1,24 @@
+name: Auto-PR on Push
+
+on:
+  push:
+    branches: [ "!main" ]  # Trigger on pushes to non-main branches
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: "Automatic PR from"  # Customize title
+          body: "This pull request was created automatically from commit"  # Customize body
+          branch: testPRauto  # Branch to create PR from
+          base: main  # Target branch for PR
+
+          # Disable automatic merging (recommended)
+          automerge: false
+          # delete-branch: true  # Optional: Delete source branch after PR creation
