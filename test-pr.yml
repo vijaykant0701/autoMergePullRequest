@@ -1,23 +1,24 @@
-name: Test and Create PR
+name: Auto-PR on Push
 
 on:
-  pull_request:  # Trigger workflow on pull request events
+  push:
+    branches: [ "!main" ]  # Trigger on pushes to non-main branches
 
 jobs:
-  test:
-   # runs-on: ubuntu-latest  # Specify runner environment
+  create-pr:
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3  # Checkout pull request code
-      
-      - name: Create Pull Request (if tests pass)
-        uses: actions/checkout@v3  # Checkout code again (optional)
-         # Only run if previous steps succeeded
-        run: |
-          gh pr create \
-            -t "Automatic Pull Request (Tests Passed)" \
-            -B main \
-            -h ${{ github.sha }}  # Replace with your PR body and title 
+      - uses: actions/checkout@v3
 
-          # Add labels or assignees as needed
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: "Automatic PR from ${{ github.sha }}"  # Customize title
+          body: "This pull request was created automatically from commit ${{ github.sha }}"  # Customize body
+          branch: ${{ github.head_ref }}  # Branch to create PR from
+          base: main  # Target branch for PR
 
+          # Set these to false to disable automatic merging (recommended)
+          # automerge: true
+          # delete-branch: true
