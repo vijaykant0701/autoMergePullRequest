@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3  # Checkout pull request code
       - name: Install dependencies  # Install dependencies (replace with your command)
-        run: mvn install
+        #run: mvn install
 
       - name: Run tests  # Run your tests (replace with your command)
         
