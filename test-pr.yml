@@ -14,11 +14,11 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
-          title: "Automatic PR from ${{ github.sha }}"  # Customize title
-          body: "This pull request was created automatically from commit ${{ github.sha }}"  # Customize body
-          branch: ${{ github.head_ref }}  # Branch to create PR from
+          title: "Automatic PR from"  # Customize title
+          body: "This pull request was created automatically from commit"  # Customize body
+          branch: testPRauto # Branch to create PR from
           base: main  # Target branch for PR
 
           # Set these to false to disable automatic merging (recommended)
-          # automerge: true
+           automerge: true
           # delete-branch: true
