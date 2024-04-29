@@ -1,14 +1,14 @@
 name: manual run
 
-on:
-  push:
-    branches: [ "!main" ]  # Trigger on pushes to non-main branches
+on: [push]
+
 
 jobs:
   create-pr:
     runs-on: self-hosted
 
     steps:
+      - uses: actions/checkout@v4
      
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
