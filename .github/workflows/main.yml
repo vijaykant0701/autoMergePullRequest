@@ -18,7 +18,7 @@ jobs:
         with:
           title: "Automatic PR from"  # Customize title
           body: "This pull request was created automatically from commit"  # Customize body
-          branch: testPRauto  # Branch to create PR from
+          branch: "testPRauto"  # Branch to create PR from
           base: main  # Target branch for PR
 
           # Disable automatic merging ()
