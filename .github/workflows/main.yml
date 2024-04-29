@@ -9,15 +9,13 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: checking out code
-        uses: actions/checkout@v3
-
+     
       - name: Create Pull Request
-        uses: create-pull-request@v4
+        uses: cpeter-evans/create-pull-request@v4
         with:
           title: "Automatic PR from"  # Customize title
           body: "This pull request was created automatically from commit"  # Customize body
-          branch: testPRauto  # Branch to create PR from
+          branch: "testPRauto"  # Branch to create PR from
           base: main  # Target branch for PR
 
           # Disable automatic merging (recommended)
