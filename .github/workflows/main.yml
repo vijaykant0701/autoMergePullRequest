@@ -21,6 +21,6 @@ jobs:
           branch: testPRauto  # Branch to create PR from
           base: main  # Target branch for PR
 
-          # Disable automatic merging (recommended)
+          # Disable automatic merging ()
           
           # delete-branch: true  # Optional: Delete source branch after PR creation
