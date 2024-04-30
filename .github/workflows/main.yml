@@ -1,26 +1,37 @@
-name: manual run
+name: CI
+on:
+  push:
+    branches: [ "!main" ]
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
 
-on: 
- push:
-    branches:
-      - main
-
+permissions:
+  pull-requests: write
+  contents: write
 
 jobs:
-  create-pr:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-     
+
       - name: Create Pull Request
+        id: cpr
         uses: peter-evans/create-pull-request@v6
         with:
-          title: "Automatic PR from"  # Customize title
-          body: "This pull request was created automatically from commit"  # Customize body
-          branch: testPRauto  # Branch to create PR from
-          
+          title: "Automatic PR from ${{ github.sha }}"  # Customize title
+          body: "This pull request was created automatically from commit ${{ github.sha }}"  # Customize body
+          branch: "testPRauto"  # Branch to create PR from
+          base: main  # Target branch for PR
 
-          # Disable automatic merging ()
-          
-          # delete-branch: true  # Optional: Delete source branch after PR creation
+            
+         
+     
+
+  
