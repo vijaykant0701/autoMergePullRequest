@@ -6,7 +6,7 @@ on:
       - 'README.md'
       - 'docs/**'
   pull_request:
-    branches: ["!main" ]
+    branches: [main]
     paths-ignore:
       - 'README.md'
       - 'docs/**'
@@ -27,7 +27,7 @@ jobs:
         with:
           title: "Automatic PR from ${{ github.sha }}"  # Customize title
           body: "This pull request was created automatically from commit ${{ github.sha }}"  # Customize body
-          branch: "testPRauto"  # Branch to create PR from
+          branch: testPRauto # Branch to create PR from
           base: main  # Target branch for PR
       - uses: actions/checkout@v4
 
