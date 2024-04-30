@@ -1,6 +1,9 @@
 name: manual run
 
-on: [push]
+on: 
+ push:
+    branches:
+      - main
 
 
 jobs:
@@ -11,12 +14,12 @@ jobs:
       - uses: actions/checkout@v4
      
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v6
         with:
           title: "Automatic PR from"  # Customize title
           body: "This pull request was created automatically from commit"  # Customize body
           branch: testPRauto  # Branch to create PR from
-          base: main  # Target branch for PR
+          
 
           # Disable automatic merging ()
           
