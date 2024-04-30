@@ -2,8 +2,9 @@ name: manual run
 
 on: 
  push:
-    branches:
-      - main
+    branches: [! main]
+ pull_request:
+    branches: [main]
 
 
 jobs:
@@ -18,7 +19,7 @@ jobs:
         with:
           title: "Automatic PR from"  # Customize title
           body: "This pull request was created automatically from commit"  # Customize body
-          branch: testPRauto  # Branch to create PR from
+         
           
 
           # Disable automatic merging ()
