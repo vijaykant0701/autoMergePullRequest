@@ -1,1 +1,1 @@
-auto this test
+test auto this test
