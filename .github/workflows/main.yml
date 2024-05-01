@@ -3,46 +3,35 @@ name: Demo to create automatic PR
 on:
   push:
     branches:
-    
-      - "*"
-
+      - main
 
 jobs:
-  updateAuthor:
+  create-pr:
     runs-on: ubuntu-latest
+
     steps:
-      - name: checking out code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3  # Checkout pull request code
 
-      - name: extract git commit data
-        uses: rlespinasse/git-commit-data-action@v1.x
+      - name: Check for Changes
+        run: |
+          git fetch origin main
+          git diff --quiet HEAD origin/main
+          if [ $? -eq 0 ]; then
+            echo "No changes detected. Skipping PR creation."
+            exit 0
+          fi
+          echo "Changes detected. Proceeding with PR creation."
 
-     
-
-
- 
-      - name: Raise PR
-
-        id: demo-1
-        uses: peter-evans/create-pull-request@v3
+      - name: Raise Pull Request
+        uses: peter-evans/create-pull-request@v3  # Assuming this action is compatible with Node.js 20 (check for updates)
         with:
-          branch: "auto-pr-branch1"
-          base: main
+          title: "Automatic PR from ${{ github.sha }}"  # Customize title based on commit SHA
+          body: "This pull request was created automatically."  # Customize body message
+          branch: "auto-pr-branch"  # Branch name for the PR
+          base: main  # Target branch for the PR
+          token: ${{ secrets.GITHUB_TOKEN }}  # Access token with pull request creation permissions
+          delete-branch: true  # Optional: Delete source branch after PR creation
 
-
-          title: "demo for auto pr1"
-
-          committer: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}">
-          author: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}">
-          body:
-            This is to show automatic PR creation
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-          delete-branch: false
-
-            
-
-         
-     
-
-  
+          # Removed these lines (author and committer):
+          # author: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}>
+          # committer: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}>
