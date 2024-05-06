@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checking out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: extract git commit data
         uses: rlespinasse/git-commit-data-action@v1.x
@@ -20,7 +20,6 @@ jobs:
         id: demo-1
         uses: peter-evans/create-pull-request@v3
         with:
-          branch: "auto-pr-branch1"
           base: main
           title: "demo for auto pr1"
           committer: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}">
